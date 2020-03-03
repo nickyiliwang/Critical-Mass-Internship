@@ -1,0 +1,15 @@
+body {
+  font-family: sans-serif;
+}
+
+.spicy:before {
+  width: 16px;
+  height: 16px;
+  content: "";
+  background-image: url("../assets/spicy.svg");
+  background-repeat: no-repeat;
+  display: inline-block;
+  padding-right: 3px;
+  position: relative;
+  top: 2px;
+}
