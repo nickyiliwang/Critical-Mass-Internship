@@ -343,11 +343,11 @@ var renderHtmlFromResult = function renderHtmlFromResult(result, element) {
         price = _ref.price,
         spicy = _ref.spicy,
         menuOrder = _ref.menuOrder;
-    getDishImage(name);
     var singleList = document.createElement("li");
     var className = name.replace(/[^0-9A-Z]+/gi, "");
-    singleList.className = className;
-    singleList.innerHTML = "\n      <h3 class=\"".concat(spicy ? "spicy" : "", "\">").concat(menuOrder + 1, ". ").concat(name, ", $ ").concat(price.toFixed(2), "</h3>\n      <p>").concat(description, "</p>\n      <p>").concat(type, "</p>\n  ");
+    getDishImage(name); // <img src="${className} card-image" alt="${name}" >
+
+    singleList.innerHTML = "\n      <div class=\"".concat(className, " card-image-container\"></div>\n      <h3 class=\"").concat(spicy ? "spicy" : "", "\">").concat(menuOrder + 1, ". ").concat(name, ", $ ").concat(price.toFixed(2), "</h3>\n      <p>").concat(description, "</p>\n      <p>").concat(type, "</p>\n  ");
     element.appendChild(singleList);
   });
 };
@@ -359,11 +359,16 @@ var getDishImage = function getDishImage(query) {
   }).then(function (_ref2) {
     var baseUri = _ref2.baseUri,
         results = _ref2.results;
-    console.log(results);
-    var element = document.querySelector(".".concat(className)); // default image
-
-    element.style.backgroundImage = "url(https://www.kingarthurflour.com/sites/default/files/styles/featured_image/public/recipe_legacy/20-3-large.jpg?itok=1EY8KWJG)";
-    element.style.backgroundImage = "url(".concat(baseUri).concat(results[0].image, ")");
+    // const element = document.querySelector(`.${className}`);
+    var imageElement = document.createElement("img");
+    imageElement.src = "https://www.kingarthurflour.com/sites/default/files/styles/featured_image/public/recipe_legacy/20-3-large.jpg?itok=1EY8KWJG";
+    var element = document.querySelector(".".concat(className));
+    element.appendChild(imageElement);
+    console.log(element); // default image
+    // element.src = `https://www.kingarthurflour.com/sites/default/files/styles/featured_image/public/recipe_legacy/20-3-large.jpg?itok=1EY8KWJG`;
+    // if (results[0].image) {
+    //   element.src = `${baseUri}${results[0].image}`;
+    // }
   }).catch(function (error) {
     return console.log("error", error);
   });
@@ -400,7 +405,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "4856" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "6368" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

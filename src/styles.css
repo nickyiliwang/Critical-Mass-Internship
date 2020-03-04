@@ -54,13 +54,15 @@ table {
 
 
 body {
-  font-family: sans-serif;
+  padding: 30px 0;
 }
 
+/* fonts */
 h1 {
   text-align: center;
   font-size: 50px;
   font-family: 'Dancing Script', cursive;
+  font-weight: bold;
   margin: 0 0 20px;
 	color: #000;
 }

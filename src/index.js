@@ -21,12 +21,17 @@ const pizzaResults = menuFilterAndSort("pizza");
 
 const renderHtmlFromResult = (result, element) => {
   result.forEach(({ name, description, type, price, spicy, menuOrder }) => {
-    getDishImage(name);
     const singleList = document.createElement("li");
     const className = name.replace(/[^0-9A-Z]+/gi, "");
-    singleList.className = className;
+    getDishImage(name);
+
+
+    // <img src="${className} card-image" alt="${name}" >
+
     singleList.innerHTML = `
-      <h3 class="${spicy ? "spicy" : ""}">${menuOrder + 1}. ${name}, $ ${price.toFixed(2)}</h3>
+      <div class="${className} card-image-container"></div>
+      <h3 class="${spicy ? "spicy" : ""}">${menuOrder +
+      1}. ${name}, $ ${price.toFixed(2)}</h3>
       <p>${description}</p>
       <p>${type}</p>
   `;
@@ -42,11 +47,20 @@ const getDishImage = query => {
   )
     .then(res => res.json())
     .then(({ baseUri, results }) => {
-      console.log(results);
+      // const element = document.querySelector(`.${className}`);
+      const imageElement = document.createElement("img");
+      imageElement.src =
+        "https://www.kingarthurflour.com/sites/default/files/styles/featured_image/public/recipe_legacy/20-3-large.jpg?itok=1EY8KWJG";
+
       const element = document.querySelector(`.${className}`);
+      element.appendChild(imageElement);
+      console.log(element);
       // default image
-      element.style.backgroundImage = `url(https://www.kingarthurflour.com/sites/default/files/styles/featured_image/public/recipe_legacy/20-3-large.jpg?itok=1EY8KWJG)`;
-      element.style.backgroundImage = `url(${baseUri}${results[0].image})`;
+      // element.src = `https://www.kingarthurflour.com/sites/default/files/styles/featured_image/public/recipe_legacy/20-3-large.jpg?itok=1EY8KWJG`;
+
+      // if (results[0].image) {
+      //   element.src = `${baseUri}${results[0].image}`;
+      // }
     })
     .catch(error => console.log("error", error));
 };
