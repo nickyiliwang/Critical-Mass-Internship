@@ -26,10 +26,9 @@ const renderHtmlFromResult = (result, element) => {
     const className = name.replace(/[^0-9A-Z]+/gi, "");
     singleList.className = className;
     singleList.innerHTML = `
-      <h3 class="${spicy ? "spicy" : ""}">${menuOrder + 1}. ${name}</h3>
+      <h3 class="${spicy ? "spicy" : ""}">${menuOrder + 1}. ${name}, $ ${price.toFixed(2)}</h3>
       <p>${description}</p>
       <p>${type}</p>
-      <p>$ ${price.toFixed(2)}</p>
   `;
     element.appendChild(singleList);
   });

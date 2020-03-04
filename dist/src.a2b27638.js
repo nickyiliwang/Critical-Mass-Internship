@@ -347,7 +347,7 @@ var renderHtmlFromResult = function renderHtmlFromResult(result, element) {
     var singleList = document.createElement("li");
     var className = name.replace(/[^0-9A-Z]+/gi, "");
     singleList.className = className;
-    singleList.innerHTML = "\n      <h3 class=\"".concat(spicy ? "spicy" : "", "\">").concat(menuOrder + 1, ". ").concat(name, "</h3>\n      <p>").concat(description, "</p>\n      <p>").concat(type, "</p>\n      <p>$ ").concat(price.toFixed(2), "</p>\n  ");
+    singleList.innerHTML = "\n      <h3 class=\"".concat(spicy ? "spicy" : "", "\">").concat(menuOrder + 1, ". ").concat(name, ", $ ").concat(price.toFixed(2), "</h3>\n      <p>").concat(description, "</p>\n      <p>").concat(type, "</p>\n  ");
     element.appendChild(singleList);
   });
 };
@@ -400,7 +400,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "3419" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "4856" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
