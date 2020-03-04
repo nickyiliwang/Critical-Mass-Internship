@@ -21,7 +21,7 @@ const pizzaResults = menuFilterAndSort("pizza");
 
 const renderHtmlFromResult = (result, element) => {
   result.forEach(({ name, description, type, price, spicy, menuOrder }) => {
-    const imageUrl = getDishImage(name);
+    getDishImage(name);
     const singleList = document.createElement("li");
     const className = name.replace(/[^0-9A-Z]+/gi, "");
     singleList.className = className;
@@ -30,7 +30,6 @@ const renderHtmlFromResult = (result, element) => {
       <p>${description}</p>
       <p>${type}</p>
       <p>$ ${price.toFixed(2)}</p>
-      <img src=${imageUrl} alt="${name}">
   `;
     element.appendChild(singleList);
   });
@@ -38,16 +37,17 @@ const renderHtmlFromResult = (result, element) => {
 
 const getDishImage = query => {
   const className = query.replace(/[^0-9A-Z]+/gi, "");
-  const searchQuery = query.replace(/\s/g, "-");
-  console.log(query);
 
   fetch(
-    `https://api.unsplash.com/search/photos?client_id=WmhoLo_j2TMfoiPS5UO0Y1IR84cA8Nvi0_BhHn7MYJ8&query=${searchQuery}`
+    `https://api.spoonacular.com/recipes/search?query=${query}&apiKey=0ac0f286289944a88643c4cd6c7c4ae2`
   )
     .then(res => res.json())
-    .then(result => {
+    .then(({ baseUri, results }) => {
+      console.log(results);
       const element = document.querySelector(`.${className}`);
-      element.style.backgroundImage = `url(${result.results[0].urls.small})`;
+      // default image
+      element.style.backgroundImage = `url(https://www.kingarthurflour.com/sites/default/files/styles/featured_image/public/recipe_legacy/20-3-large.jpg?itok=1EY8KWJG)`;
+      element.style.backgroundImage = `url(${baseUri}${results[0].image})`;
     })
     .catch(error => console.log("error", error));
 };
