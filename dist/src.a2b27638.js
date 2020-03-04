@@ -334,17 +334,41 @@ var menuFilterAndSort = function menuFilterAndSort(itemName) {
 var startersResults = menuFilterAndSort("starters");
 var pastaResults = menuFilterAndSort("pasta");
 var pizzaResults = menuFilterAndSort("pizza");
-startersResults.forEach(function (_ref) {
-  var name = _ref.name,
-      description = _ref.description,
-      type = _ref.type,
-      price = _ref.price,
-      spicy = _ref.spicy,
-      menuOrder = _ref.menuOrder;
-  var singleList = document.createElement("li");
-  singleList.innerHTML = "\n        <h2>".concat(name, "</h2>\n        <p>").concat(description, "</p>\n        <p>").concat(type, "</p>\n        <p>$ ").concat(price, "</p>\n        <p>Spicy? ").concat(spicy, "</p>\n");
-  starters.appendChild(singleList);
-});
+
+var renderHtmlFromResult = function renderHtmlFromResult(result, element) {
+  result.forEach(function (_ref) {
+    var name = _ref.name,
+        description = _ref.description,
+        type = _ref.type,
+        price = _ref.price,
+        spicy = _ref.spicy,
+        menuOrder = _ref.menuOrder;
+    var imageUrl = getDishImage(name);
+    var singleList = document.createElement("li");
+    var className = name.replace(/[^0-9A-Z]+/gi, "");
+    singleList.className = className;
+    singleList.innerHTML = "\n      <h3 class=\"".concat(spicy ? "spicy" : "", "\">").concat(menuOrder + 1, ". ").concat(name, "</h3>\n      <p>").concat(description, "</p>\n      <p>").concat(type, "</p>\n      <p>$ ").concat(price.toFixed(2), "</p>\n      <img src=").concat(imageUrl, " alt=\"").concat(name, "\">\n  ");
+    element.appendChild(singleList);
+  });
+};
+
+var getDishImage = function getDishImage(query) {
+  var className = query.replace(/[^0-9A-Z]+/gi, "");
+  var searchQuery = query.replace(/\s/g, "-");
+  console.log(query);
+  fetch("https://api.unsplash.com/search/photos?client_id=WmhoLo_j2TMfoiPS5UO0Y1IR84cA8Nvi0_BhHn7MYJ8&query=".concat(searchQuery)).then(function (res) {
+    return res.json();
+  }).then(function (result) {
+    var element = document.querySelector(".".concat(className));
+    element.style.backgroundImage = "url(".concat(result.results[0].urls.small, ")");
+  }).catch(function (error) {
+    return console.log("error", error);
+  });
+};
+
+renderHtmlFromResult(startersResults, starters);
+renderHtmlFromResult(pastaResults, pasta);
+renderHtmlFromResult(pizzaResults, pizza);
 },{"./styles.css":"src/styles.css","./menu":"src/menu.js"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
@@ -373,7 +397,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "6358" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "1703" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
