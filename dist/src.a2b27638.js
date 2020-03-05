@@ -344,7 +344,6 @@ var renderHtmlFromResult = function renderHtmlFromResult(result, element) {
         spicy = _ref.spicy,
         menuOrder = _ref.menuOrder;
     var singleList = document.createElement("li");
-    singleList.className = "masonry-brick";
     var className = name.replace(/[^0-9A-Z]+/gi, "");
     getDishImage(name);
     singleList.innerHTML = "\n     <div class=\"".concat(className, " card-image-container\"></div>\n     <div class=\"card-content-container\">\n     <h3 class=\"").concat(spicy ? "spicy" : "", "\">").concat(menuOrder + 1, ". ").concat(name, ", $ ").concat(price.toFixed(2), "</h3>\n      <p>").concat(description, "</p>\n     </div>\n  ");
@@ -360,19 +359,19 @@ var getDishImage = function getDishImage(query) {
     var baseUri = _ref2.baseUri,
         results = _ref2.results;
     var imageElement = document.createElement("img");
-    var element = document.querySelector(".".concat(className)); // default image
+    var element = document.querySelector(".".concat(className)); // image fetch has no results
 
-    imageElement.src = "https://www.kingarthurflour.com/sites/default/files/styles/featured_image/public/recipe_legacy/20-3-large.jpg?itok=1EY8KWJG";
-    imageElement.src = "".concat(baseUri).concat(results[0].image);
-    imageElement.alt = query;
-
-    if (results[0].image) {} else {
-      imageElement.src = "https://www.kingarthurflour.com/sites/default/files/styles/featured_image/public/recipe_legacy/20-3-large.jpg?itok=1EY8KWJG";
+    if (results === undefined || results.length === 0) {
+      imageElement.src = "https://imagesvc.meredithcorp.io/v3/mm/image?url=https%3A%2F%2Fassets.marthastewart.com%2Fstyles%2Fwmax-750%2Fd29%2Fgrandma-style-pizza-103321886%2Fgrandma-style-pizza-103321886_horiz.jpg%3Fitok%3Dw9IrbEmy";
+    } else {
+      // using the first image
+      imageElement.src = "".concat(baseUri).concat(results[0].image);
     }
 
+    imageElement.alt = query;
     element.appendChild(imageElement);
   }).catch(function (error) {
-    return console.log("error", error);
+    return console.error("error", error);
   });
 };
 
@@ -407,7 +406,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "12300" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "2336" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

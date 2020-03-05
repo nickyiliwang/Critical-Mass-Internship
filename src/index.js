@@ -22,7 +22,6 @@ const pizzaResults = menuFilterAndSort("pizza");
 const renderHtmlFromResult = (result, element) => {
   result.forEach(({ name, description, type, price, spicy, menuOrder }) => {
     const singleList = document.createElement("li");
-    singleList.className = "masonry-brick";
     const className = name.replace(/[^0-9A-Z]+/gi, "");
     getDishImage(name);
 
@@ -49,21 +48,19 @@ const getDishImage = query => {
       const imageElement = document.createElement("img");
       const element = document.querySelector(`.${className}`);
 
-      // default image
-      imageElement.src =
-        "https://www.kingarthurflour.com/sites/default/files/styles/featured_image/public/recipe_legacy/20-3-large.jpg?itok=1EY8KWJG";
-
-      imageElement.src = `${baseUri}${results[0].image}`;
+      // image fetch has no results
+      if (results === undefined || results.length === 0) {
+        imageElement.src =
+          "https://imagesvc.meredithcorp.io/v3/mm/image?url=https%3A%2F%2Fassets.marthastewart.com%2Fstyles%2Fwmax-750%2Fd29%2Fgrandma-style-pizza-103321886%2Fgrandma-style-pizza-103321886_horiz.jpg%3Fitok%3Dw9IrbEmy";
+      } else {
+        // using the first image
+        imageElement.src = `${baseUri}${results[0].image}`;
+      }
       imageElement.alt = query;
 
-      if (results[0].image) {
-      } else {
-        imageElement.src =
-          "https://www.kingarthurflour.com/sites/default/files/styles/featured_image/public/recipe_legacy/20-3-large.jpg?itok=1EY8KWJG";
-      }
       element.appendChild(imageElement);
     })
-    .catch(error => console.log("error", error));
+    .catch(error => console.error("error", error));
 };
 
 renderHtmlFromResult(startersResults, starters);
