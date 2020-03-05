@@ -54,7 +54,12 @@ table {
 
 
 body {
-  padding: 30px 0;
+  padding-top: 30px;
+}
+
+/* image */
+img {
+  width: 100%;
 }
 
 /* fonts */
@@ -65,6 +70,7 @@ h1 {
   font-weight: bold;
   margin: 0 0 20px;
 	color: #000;
+position: relative;
 }
 
 h2, h3, p {
@@ -91,6 +97,10 @@ p {
   margin: 0 auto;
 }
 
+span {
+  font-size: 15px;
+}
+
 .spicy:before {
   width: 16px;
   height: 16px;
@@ -103,12 +113,75 @@ p {
   top: 2px;
 }
 
-section ul li {
-  margin: 20px;
-  padding: 20px;
-  height: 300px;
-  background-size: cover;
+footer {
+  padding: 10px 0;
+  margin-top: 20px;
+  text-align: center;
+  color: white;
+  background-color: grey;
 }
 
+section {
+  margin-top: 50px;
+}
+
+section#pizza {
+  margin: 250px 0;
+}
+
+.card-content-container {
+  padding: 10px 0;
+}
+
+
+/* credit: https://w3bits.com/css-masonry/ */
+
+.masonry {
+  display: grid;
+  grid-gap: 2em; 
+  grid-template-columns: repeat( auto-fill, minmax( 230px, 1fr ) );
+  grid-auto-rows: 250px;
+}
+
+/* 
+  ##Device = Tablets, Ipads (portrait)
+  ##Screen = B/w 768px to 1024px
+*/
+
+@media (min-width: 768px) and (max-width: 1024px) {
+
+  .masonry {
+    grid-template-columns: repeat( auto-fill, minmax( 180px, 1fr ) );
+    grid-auto-rows: 210px;
+  
+  }
+  
+  section#pasta .masonry {
+    grid-template-columns: repeat( auto-fill, minmax( 180px, 1fr ) );
+    grid-auto-rows: 320px;
+  }
+
+  section#pizza {
+    margin: 0 0 250px 0;
+  }
+}
+
+
+/* 
+  ##Device = Low Resolution Tablets, Mobiles (Landscape)
+  ##Screen = B/w 481px to 767px
+*/
+
+@media (min-width: 481px) and (max-width: 767px) {
+
+  .masonry {
+  display: flex;
+    flex-direction: column;
+} 
+
+section,section#pizza {
+  margin: 20px 0;
+} 
+}
 
 /*# sourceMappingURL=/src.a2b27638.css.map */
