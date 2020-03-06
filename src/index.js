@@ -4,6 +4,7 @@ import menu from "./menu";
 const starters = document.querySelector(".starters-content");
 const pasta = document.querySelector(".pasta-content");
 const pizza = document.querySelector(".pizza-content");
+const spicyCheckbox = document.querySelector(".spicy-checkbox");
 // menu database
 const menuItems = menu.items;
 
@@ -22,6 +23,7 @@ const pizzaResults = menuFilterAndSort("pizza");
 const renderHtmlFromResult = (result, element) => {
   result.forEach(({ name, description, type, price, spicy, menuOrder }) => {
     const singleList = document.createElement("li");
+    spicy ? (singleList.className = "spicyToggle") : null;
     const className = name.replace(/[^0-9A-Z]+/gi, "");
     getDishImage(name);
 
@@ -66,3 +68,15 @@ const getDishImage = query => {
 renderHtmlFromResult(startersResults, starters);
 renderHtmlFromResult(pastaResults, pasta);
 renderHtmlFromResult(pizzaResults, pizza);
+
+// spice filter
+
+spicyCheckbox.addEventListener("change", function() {
+  const spicyFoods = document.querySelectorAll(".spicyToggle");
+
+  if (!this.checked) {
+    spicyFoods.forEach(spicyFood => (spicyFood.style.display = "none"));
+  } else {
+    spicyFoods.forEach(spicyFood => (spicyFood.style.display = "block"));
+  }
+});

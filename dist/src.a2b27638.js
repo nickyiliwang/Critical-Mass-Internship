@@ -317,7 +317,8 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 // DOM Selects
 var starters = document.querySelector(".starters-content");
 var pasta = document.querySelector(".pasta-content");
-var pizza = document.querySelector(".pizza-content"); // menu database
+var pizza = document.querySelector(".pizza-content");
+var spicyCheckbox = document.querySelector(".spicy-checkbox"); // menu database
 
 var menuItems = _menu.default.items;
 
@@ -344,6 +345,7 @@ var renderHtmlFromResult = function renderHtmlFromResult(result, element) {
         spicy = _ref.spicy,
         menuOrder = _ref.menuOrder;
     var singleList = document.createElement("li");
+    spicy ? singleList.className = "spicyToggle" : null;
     var className = name.replace(/[^0-9A-Z]+/gi, "");
     getDishImage(name);
     singleList.innerHTML = "\n     <div class=\"".concat(className, " card-image-container\"></div>\n     <div class=\"card-content-container\">\n     <h3 class=\"").concat(spicy ? "spicy" : "", "\">").concat(menuOrder + 1, ". ").concat(name, ", $ ").concat(price.toFixed(2), "</h3>\n      <p>").concat(description, "</p>\n     </div>\n  ");
@@ -377,7 +379,21 @@ var getDishImage = function getDishImage(query) {
 
 renderHtmlFromResult(startersResults, starters);
 renderHtmlFromResult(pastaResults, pasta);
-renderHtmlFromResult(pizzaResults, pizza);
+renderHtmlFromResult(pizzaResults, pizza); // spice filter
+
+spicyCheckbox.addEventListener("change", function () {
+  var spicyFoods = document.querySelectorAll(".spicyToggle");
+
+  if (!this.checked) {
+    spicyFoods.forEach(function (spicyFood) {
+      return spicyFood.style.display = "none";
+    });
+  } else {
+    spicyFoods.forEach(function (spicyFood) {
+      return spicyFood.style.display = "block";
+    });
+  }
+});
 },{"./styles.css":"src/styles.css","./menu":"src/menu.js"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
@@ -406,7 +422,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "2336" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "7450" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
